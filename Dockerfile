@@ -2,8 +2,8 @@ FROM vantienvnn/laravel5-docker-build:latest
 
 # Apply Nginx configuration
 RUN apt-get update \
-    && apt-get install postgresql postgresql-contrib \
-    && apt-get remove nodejs -y
+    && apt-get install -y postgresql postgresql-contrib \
+    && apt-get remove -y nodejs \
     && touch /init-start.sh && rm -f /init-start.sh \
     && chsh -s /bin/bash jenkins
 
@@ -15,3 +15,4 @@ ADD config/init-start.sh /init-start.sh
 RUN chmod +x /init-start.sh
 # Default command
 ENTRYPOINT ["/init-start.sh"]
+
