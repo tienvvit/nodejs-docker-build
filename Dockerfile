@@ -11,6 +11,12 @@ RUN apt-get update \
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - \
     && apt-get install -y nodejs
 
+RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/ \
+    &&  rm -r /etc/ssl/private \
+    &&  mv /etc/ssl/private-copy /etc/ssl/private \
+    &&  chmod -R 0700 /etc/ssl/private \
+    &&  chown -R postgres /etc/ssl/private
+
 ADD config/init-start.sh /init-start.sh
 RUN chmod +x /init-start.sh
 # Default command
